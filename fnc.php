@@ -18,10 +18,10 @@ class fnc{
         return md5($pass, PASSWORD_DEFAULT);
     }
 }
-$obj = new fnc();
-print $obj->user_age("Alex", 2004);
+//$obj = new fnc();
+//print $obj->user_age("Alex", 2004);
 //print "Hi " .$obj-> computer_user("Alex"). " and I am ". $obj->user_age(2004);
-print "<br>";
+//print "<br>";
 
-print $obj-> hash_pass('123');
+//print $obj-> hash_pass('123');
 ?>
