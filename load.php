@@ -6,9 +6,9 @@ function ClassAutoLoad($ClassName){
     
     foreach($directories as $dir){
         $FileName = dirname(__FILE__) . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $ClassName . '.php';
-        if(is_readable($FileName)){
+        if(file_exists($FileName) AND is_readable($FileName)){
             require $FileName;
-        }
+           }
     }
    
 }
