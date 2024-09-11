@@ -27,7 +27,7 @@ class dbConnection{
                 if($this->connection->connect_error){
                     return"connection failed" .$this->connection->connect_error;
                 }else{
-                    print "Connected Successfully";
+                    print "Connected Successfully to MySQLi";
                 }
                 break;
                 case"PDO":
@@ -38,7 +38,7 @@ class dbConnection{
                     $this->connection = new PDO("mysql:host=$db_host;dbname=$db_name", $db_user, $db_pass);
                     // set the PDO error mode to exception
                     $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    echo "Connected successfully :-)";
+                    echo "Connected successfully to PDO";
                   } catch(PDOException $e) {
                     echo "Connection failed: " . $e->getMessage();
                   }
