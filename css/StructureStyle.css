@@ -17,11 +17,16 @@ body{
     text-align: left;
     padding: 14px 16px;
 }
-.topnav a:hover{
+.topnav a:hover,#active{
     color:black;
     background-color: azure;
 
 }
+/*.topnav a:active{
+    color: azure ;
+    background-color: red;
+}*/
+
 .footer{
     background-color: black;
     padding: 20px;

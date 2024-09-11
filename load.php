@@ -19,7 +19,12 @@ spl_autoload_register('ClassAutoLoad');
 $objLayouts = new layouts();
 $objMenus = new menus();
 $obj = new fnc();
+$objContents = new contents();
 
+require "includes/constants.php";
+require "includes/dbConnection.php";
+
+$conn= new dbConnection(DBTYPE,HOSTNAME, DBPORT,HOSTUSER,HOSTPASS,DBNAME);
 
 // $arr=["Green","Black","Red","White"];
 
