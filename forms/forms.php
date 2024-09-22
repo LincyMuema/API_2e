@@ -11,11 +11,11 @@ class forms{
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address: </label>
-                        <input type="email" name="email_address" class="form-control form-control-lg" id="email" placeholder="Enter your email" maxlength="50">
+                        <input type="email" name="email" class="form-control form-control-lg" id="email" placeholder="Enter your email" maxlength="50">
                     </div>
                     <div class="mb-3">
                         <label for="username" class="form-label">Username: </label>
-                        <input type="text" name="username" class="form-control form-control-lg" id="email" placeholder="Enter your username" maxlength="50">
+                        <input type="text" name="username" class="form-control form-control-lg" id="username" placeholder="Enter your username" maxlength="50">
                     </div>
                     <div class="col-12">
                         <button class="btn btn-primary" name="signup" type="submit">Sign Up</button>
