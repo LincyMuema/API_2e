@@ -1,5 +1,6 @@
 <?php
 // Class Auto load
+session_start();
 require "includes/constants.php";
 require "includes/dbConnection.php";
 function ClassAutoLoad($ClassName){
