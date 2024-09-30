@@ -21,6 +21,7 @@ $conn = new dbConnection(DBTYPE, HOSTNAME, DBPORT, HOSTUSER, HOSTPASS, DBNAME);
 $objLayouts = new layouts();
 $objMenus = new menus();
 //$obj = new fnc();
+$objFncs = new fncs();
 $objContents = new contents();
 $objForms = new forms();
 $objAuth = new auth();
