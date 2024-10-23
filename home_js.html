@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<body onload="startTime()">
     <h1>Hello</h1>
     <button onclick="document .getElementById('MyImg').src = 'images/bulbOn'">Turn On</button>
     <img src="images/light_bulb.jpeg" id="MyImg" alt="" content-align="left" width="150px"
@@ -21,17 +21,17 @@
     <br>
     <br>
     <script>document.write('Good Morning');</script>
-    <br>
+   
     <br>
     <script>document.write(5+9);</script>
     <br>
-    <br>
+  
     <button onclick="document.write(5+9)"> Compute</button>
     <br>
-    <br>
+   
     <script>window.alert("Connection Successful!")</script>
     <br>
-    <br>
+   
     <a href="#" onclick="return confirm ('Are you sure?')">Delete</a>
     <br>
     <br>
@@ -40,10 +40,16 @@
     </script>
 
     <script>
-        var age = 13;v
+        var age = 13;
         let continent = "Africa";
         const course = "ICS";
-        document.write('I am ' + age + '. I live in ' + continent + ' and I study ' + course + '.') ;
+        //document.write('I am ' + age + '. I live in ' + continent + ' and I study ' + course + '.') ;
+        if(age > 17)
+		document.write('I am ' + age + ' I live in ' + continent + ' and I study ' + course + '. I am an adult');
+	else
+		document.write('I am ' + age + ' I live in ' + continent + ' and I study ' + course + '. I am NOT an adult');
+
+        
     </script>
     <br>
     <br>
@@ -51,6 +57,36 @@
     <p id="tictac"></p>
     <br>
     <br>
+    <script>
+        let town = "Nairobi City";
+        document.write(town.length);
+    </script>
+    
+    <br>
+    <br>
+    
+    <script>
+         const username  = prompt('What is your name?');
+    
+         if(username.length > 6){
+         	const message = `Hello ${username} <br> I am happy to introduce you to JS.`;
+         	document.write(message);
+         }else{
+         	document.write(username + ' must have more than 6 characters.');
+         }
+    </script>
+    <br>
+    <br>
+    
+    <script>
+        function calcSum(r, t){
+            return (r + t)*2;
+        }
+    document.write(calcSum(4, 9));
+    </script>
+
+    <p id="tmr"></p>
+    <script src='js/timer.js'></script>
     <script src="js/script.js"></script>
 
 </body>
