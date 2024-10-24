@@ -7,7 +7,7 @@ class dbConnection{
     private $db_user;
     private $db_pass;
     private $db_name;
-
+    public $posted_values;
     public function __construct($db_type, $db_host, $db_port, $db_user, $db_pass, $db_name){
         $this->db_type = $db_type;
         $this->db_host = $db_host;
@@ -82,9 +82,7 @@ class dbConnection{
     }
     return $this->posted_values;
 }
-/**************************************************************************************************
-* Count Returned Results (tested) Method
-***************************************************************************************************/
+
 public function count_results($sql){
     switch ($this->db_type) {
         case 'MySQLi':
@@ -102,13 +100,7 @@ public function count_results($sql){
             break;
     }
 }
-/**************************************************************************************************
-* Insert Query Method
-***************************************************************************************************/
 
-/**************************************************************************************************
-* Select Query From a DataBase Method
-***************************************************************************************************/
 public function select($sql){
     switch ($this->db_type) {
         case 'MySQLi':
@@ -122,9 +114,7 @@ public function select($sql){
             break;
     }
 }
-/***************************************************************************************************
-* Select Query While Loop From a DataBase (tested) Method
-***************************************************************************************************/
+
 public function select_while($sql){
     switch ($this->db_type) {
         case 'MySQLi':
@@ -139,9 +129,7 @@ public function select_while($sql){
             break;
     }
 }
-/**************************************************************************************************
-* Update Query (extracted) (tested) Method
-***************************************************************************************************/
+
 public function update($table, $data, $where){
     $wer = '';
     if(is_array($where)){
@@ -164,9 +152,7 @@ public function update($table, $data, $where){
     }
     return $this->extracted($sth);
 }
-/**************************************************************************************************
-* Delete Query (extracted) (tested) Method
-***************************************************************************************************/
+
 public function delete($table,$where){
     $wer = '';
     if(is_array($where)){
@@ -183,17 +169,12 @@ public function delete($table,$where){
     }
         return $this->extracted($sth);
 }
-/**************************************************************************************************
-* Truncate Query (extracted) Method
-***************************************************************************************************/
+
 public function truncate($table){
     $sth = "TRUNCATE $table";
     return $this->extracted($sth);
 }
 
-/**************************************************************************************************
-* Get ID of Last Inserted Record Method
-***************************************************************************************************/
 public function last_id(){
     switch ($this->db_type) {
         case 'MySQLi':
@@ -204,9 +185,7 @@ public function last_id(){
         break;
     }
 }	
-/**************************************************************************************************
-* Extracted (tested) Method
-***************************************************************************************************/
+
 /**
  * @param string $sth
  * @return bool|string|void
