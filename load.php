@@ -3,6 +3,7 @@
 session_start();
 require "includes/constants.php";
 require "includes/dbConnection.php";
+require "lang/en.php";
 function ClassAutoLoad($ClassName){
     $directories=["forms","processes","structure","tables","global","store"];
     
@@ -16,6 +17,9 @@ function ClassAutoLoad($ClassName){
 }
 
 spl_autoload_register('ClassAutoLoad');
+$ObjGlob = new fncs();
+$ObjSendMail = new SendMail();
+
 $conn = new dbConnection(DBTYPE, HOSTNAME, DBPORT, HOSTUSER, HOSTPASS, DBNAME);
 //creating instances of all classes
 $objLayouts = new layouts();
@@ -24,11 +28,9 @@ $objMenus = new menus();
 $objFncs = new fncs();
 $objContents = new contents();
 $objForms = new forms();
-$objAuth = new auth();
-$objAuth->signup($conn);
 
-
-
-
+$ObjAuth = new auth();
+$ObjAuth->signup($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
+$ObjAuth->verify_code($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
 
 ?>
