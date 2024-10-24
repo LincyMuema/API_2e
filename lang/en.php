@@ -5,7 +5,7 @@
 $lang["AccountVerification"] = "Welcome to {{site_full_name}}! Account Verification";
 
 /* Body Templates */
-/* Account Registration Verification */
+
 $lang["AccRegVer_template"] = "
 Hello {{fullname}},
 
