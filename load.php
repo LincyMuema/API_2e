@@ -29,8 +29,8 @@ $objFncs = new fncs();
 $objContents = new contents();
 $objForms = new forms();
 
-$ObjAuth = new auth();
-$ObjAuth->signup($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
-$ObjAuth->verify_code($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
+$objAuth = new auth();
+$objAuth->signup($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
+$objAuth->verify_code($conn, $ObjGlob, $ObjSendMail, $lang, $conf);
 
 ?>

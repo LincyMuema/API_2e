@@ -57,9 +57,7 @@ if (!ctype_alpha($username)) {
 // verify that the password length is between 4 and 8 characters
 if(!count($errors)){
 
-// Implement 2FA (email => PHP-Mailer)
-// ===================================
-// Send email verification with an OTP (OTC)
+
 
             $cols = ['fullname', 'email', 'username', 'ver_code', 'ver_code_time'];
             $vals = [$fullname, $email, $username, $conf['verification_code'], $conf['ver_code_time']];
@@ -99,17 +97,15 @@ if(!count($errors)){
 
             $errors = array();
 
-            $ver_code = $_SESSION["ver_code"] = $conn->escape_values($_POST["ver_code"]."454");
+            $ver_code = $_SESSION["ver_code"] = $conn->escape_values($_POST["ver_code"]);
 
             if(!is_numeric($ver_code)){
                 $errors['Not_numeric'] = "Invalid code. The code should be a digit";
             }
 
-            if(strlen($ver_code < 5) || strlen($ver_code > 5) ) {
+            if(strlen($ver_code) < 5 || strlen($ver_code) > 5) {
                 $errors['invalid_len'] = "Invalid code. The code should have 5 digits";
             }
-
-            // Verify verification code Exists
             $spot_ver_code_res = $conn->count_results(sprintf("SELECT ver_code FROM users WHERE ver_code = '%d' LIMIT 1", $ver_code));
             if ($spot_ver_code_res != 1){
                 $errors['ver_code_not_exist'] = "Invalid code.";
