@@ -70,4 +70,169 @@ class dbConnection{
                   }
         }
     }
+    public function escape_values($posted_values): string
+{
+    switch ($this->db_type) {
+        case 'MySQLi':
+            $this->posted_values = $this->connection->real_escape_string($posted_values);
+            break;
+        case 'PDO':
+            $this->posted_values = addslashes($posted_values);
+            break;
+    }
+    return $this->posted_values;
+}
+/**************************************************************************************************
+* Count Returned Results (tested) Method
+***************************************************************************************************/
+public function count_results($sql){
+    switch ($this->db_type) {
+        case 'MySQLi':
+            if(is_object($this->connection->query($sql))){
+                $result = $this->connection->query($sql);
+                return $result->num_rows;
+            }else{
+                print "Error 5: " . $sql . "<br />" . $this->connection->error . "<br />";
+            }
+            break;        
+        case 'PDO':
+            $res = $this->connection->prepare($sql);
+            $res->execute();
+            return $res->rowCount();
+            break;
+    }
+}
+/**************************************************************************************************
+* Insert Query Method
+***************************************************************************************************/
+
+/**************************************************************************************************
+* Select Query From a DataBase Method
+***************************************************************************************************/
+public function select($sql){
+    switch ($this->db_type) {
+        case 'MySQLi':
+            $result = $this->connection->query($sql);
+            return $result->fetch_assoc();
+            break;
+        case 'PDO':
+            $result = $this->connection->prepare($sql);
+            $result->execute();
+            return $result->fetchAll(PDO::FETCH_ASSOC)[0];
+            break;
+    }
+}
+/***************************************************************************************************
+* Select Query While Loop From a DataBase (tested) Method
+***************************************************************************************************/
+public function select_while($sql){
+    switch ($this->db_type) {
+        case 'MySQLi':
+            $result = $this->connection->query($sql);
+            for ($res = array (); $row = $result->fetch_assoc(); $res[] = $row);
+            return $res;
+            break;        
+        case 'PDO':
+            $result = $this->connection->prepare($sql);
+            $result->execute();
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+            break;
+    }
+}
+/**************************************************************************************************
+* Update Query (extracted) (tested) Method
+***************************************************************************************************/
+public function update($table, $data, $where){
+    $wer = '';
+    if(is_array($where)){
+        foreach ($where as $clave=>$value){
+            $wer.= $clave."='".$value."' AND ";
+        }
+        $wer   = substr($wer, 0, -4);
+        $where = $wer;
+    }
+    ksort($data);
+    $fieldDetails = NULL;
+    foreach ($data as $key => $values){
+        $fieldDetails .= "$key='$values',";
+    }
+    $fieldDetails = rtrim($fieldDetails,',');
+    if($where==NULL or $where==''){
+        $sth = "UPDATE $table SET $fieldDetails";
+    }else {
+        $sth = "UPDATE $table SET $fieldDetails WHERE $where";
+    }
+    return $this->extracted($sth);
+}
+/**************************************************************************************************
+* Delete Query (extracted) (tested) Method
+***************************************************************************************************/
+public function delete($table,$where){
+    $wer = '';
+    if(is_array($where)){
+        foreach ($where as $clave=>$value){
+            $wer.= $clave."='".$value."' and ";
+        }
+        $wer   = substr($wer, 0, -4);
+        $where = $wer;
+    }
+    if($where==NULL or $where==''){
+        $sth = "DELETE FROM $table";
+    }else{
+        $sth = "DELETE FROM $table WHERE $where";
+    }
+        return $this->extracted($sth);
+}
+/**************************************************************************************************
+* Truncate Query (extracted) Method
+***************************************************************************************************/
+public function truncate($table){
+    $sth = "TRUNCATE $table";
+    return $this->extracted($sth);
+}
+
+/**************************************************************************************************
+* Get ID of Last Inserted Record Method
+***************************************************************************************************/
+public function last_id(){
+    switch ($this->db_type) {
+        case 'MySQLi':
+            return $this->connection->insert_id;
+        break;    
+        case 'PDO':
+            return $this->connection->lastInsertId();
+        break;
+    }
+}	
+/**************************************************************************************************
+* Extracted (tested) Method
+***************************************************************************************************/
+/**
+ * @param string $sth
+ * @return bool|string|void
+ */
+public function extracted(string $sth)
+{
+    switch ($this->db_type) {
+        case 'MySQLi':
+            if ($this->connection->query($sth) === TRUE) {
+                return TRUE;
+            } else {
+                return "Error: " . $sth . "<br>" . $this->connection->error;
+            }
+            break;        
+        case 'PDO':
+            try {
+                // Prepare statement
+                $stmt = $this->connection->prepare($sth);
+                // execute the query
+                $stmt->execute();
+                return TRUE;
+            } catch (PDOException $e) {
+                return $sth . "<br>" . $e->getMessage();
+            }
+            break;
+    }
+}
+
 }
